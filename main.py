@@ -8,27 +8,22 @@ def main():
 
     print(f"--- Begin report of {book_path} ---")
     print(f"{count_words(file_contents)} words found in the document")
+    print("")
 
-    # CREATE HASHMAP OF INDIVIDUAL CHARACTERS WITHIN THE BOOK AND THEIR RESPECTIVE COUNTS
+    # CREATE HASHMAP OF INDIVIDUAL CHARACTERS WITHIN THE BOOK AND THEIR RESPECTIVE NUMBER OF OCCURRENCES
     chars = char_count(file_contents)
 
-    # CREATE AN EMPTY ARRAY TO BE LOOPED THROUGH IN ORDER TO PRINT CHARACTERS AND THEIR COUNTS IN DESCENDING ORDER
-    chars_list = []
-
-    # POPULATE CHARACTER ARRAY 
-    for char in chars:
-        chars_list.append(char)
-
-    # SORT THE CHARACTER ARRAY INTO DESCENDING ORDER
-    chars_list.sort()
-    print(chars_list)
+    # CREATE AN ARRAY OF CHARACTERS ARRANGED IN DESCENDING ORDER BY THEIR NUMBER OF OCCURRENCES
+    chars_list = dict_into_sorted_list(chars)
 
     # PRINT THE CHARACTERS AND THEIR COUNT
     # FIRST CHECK WHETHER CHARACTER IS AN ALPHABETIC LETTER
+    # NB - Each iteration of the "char" variable is a dictionary whose key is the letter and val is the count
     for char in chars_list:
-        if char.isalpha():
-            print(f"The \'{char}\' character was found {chars[char]} times")
+        if char['key'].isalpha():
+            print(f"The \'{char['key']}\' character was found {char['val']} times")
 
+    print("")
     print("--- End report ---")
 
 # FUNCTIONS
@@ -49,6 +44,16 @@ def char_count(text):
             chars[char] = 1
 
     return chars
+
+def dict_into_sorted_list(dict):
+    sorted_list = []
+
+    for key in dict:
+        sorted_list.append({"key": key, "val": dict[key]})
+    
+    sorted_list.sort(key=lambda x: x["val"], reverse=True)
+
+    return sorted_list
 
 
 # RUN PROGRAM
