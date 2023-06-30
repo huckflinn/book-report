@@ -1,5 +1,6 @@
 # Book Report
 A guided project through Boot.dev.
+
 ---
 ## What is it?
 Book report is a project built using the Python programming language.
